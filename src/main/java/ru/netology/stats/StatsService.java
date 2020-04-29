@@ -1,65 +1,45 @@
 package ru.netology.stats;
 
 public class StatsService {
-
-
     public long calculateSale(long[] sales){
-
         long summa = 0;
-        for (long sum : sales) {
+        for (long sum : sales){
             summa += sum;
         }
         return summa;
     }
 
-
-
-    public long averageSum(long[] sales){
-
-        long average = 0;
-        for (long sum : sales){
-            average += sum;
-        }
-        return (long) average/12;
+    public long calculateAverageSum(long[] sales) {
+        long sum = calculateSale(sales);
+        return sum / sales.length;
     }
 
-
-
-    public long maxSales(long[] sales){
-
+    public long findMaxSales(long[] sales){
         long month = 1;
-        long s = sales[0];
-        for (int i = 0; i < 12; i++){
-            if (s <= sales[i]){
+        long maxSales = sales[0];
+        for (int i = 0; i < sales.length; i++){
+            if (maxSales <= sales[i]){
                 month = i+1;
-                s= sales[i];
+                maxSales= sales[i];
             }
         }
         return month;
     }
 
-
-
-    public long minSales(long[] sales){
-
+    public long findMinSales(long[] sales){
         long month = 1;
-        long s = sales[0];
-        for (int i = 0; i < 12; i++){
-            if (s >= sales[i]){
+        long minSales = sales[0];
+        for (int i = 0; i < sales.length; i++){
+            if (minSales >= sales[i]){
                 month = i+1;
-                s= sales[i];
+                minSales= sales[i];
             }
         }
         return month;
     }
 
-
-
-
-    public long belowAverageSales(long[] sales){
-
-        StatsService averageOfYear = new StatsService();
-        long average = averageOfYear.averageSum(sales);
+    public long calculateBelowAverageSales(long[] sales){
+        long average = calculateAverageSum(sales);
         long minMonth = 0;
         for (long sum : sales){
             if (sum < average) {
@@ -69,11 +49,8 @@ public class StatsService {
         return minMonth;
     }
 
-
-    public long aboveAverageSales(long[] sales){
-
-        StatsService averageOfYear = new StatsService();
-        long average = averageOfYear.averageSum(sales);
+    public long calculateAboveAverageSales(long[] sales){
+        long average = calculateAverageSum(sales);
         long maxMonth = 0;
         for (long sum : sales){
             if (sum > average) {
